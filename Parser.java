@@ -6,13 +6,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyParser<T> {
+public class Parser<T> {
     private Reader reader;
     private CreatorFromRow<T> creator;
     private boolean hasHeader;
     private List<String> header;
 
-    public MyParser(Reader inputReader, CreatorFromRow inputCreator, boolean headerBool){
+    public Parser(Reader inputReader, CreatorFromRow inputCreator, boolean headerBool){
         this.reader = inputReader;
         this.creator = inputCreator;
         this.hasHeader = headerBool;
