@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.Creators;
 
 import edu.brown.cs.student.main.FactoryFailureException;
-
 import java.util.List;
 
 /**
@@ -12,5 +11,4 @@ import java.util.List;
  */
 public interface CreatorFromRow<T> {
   T create(List<String> row) throws FactoryFailureException;
-
 }
