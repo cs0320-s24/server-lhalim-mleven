@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.Search;
+package edu.brown.cs.student.main.SearchHelpers;
 
 import edu.brown.cs.student.main.Caching.Searching;
 import edu.brown.cs.student.main.Creators.CreatorFromRow;

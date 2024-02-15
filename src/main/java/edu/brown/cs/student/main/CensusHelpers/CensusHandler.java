@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.Census;
+package edu.brown.cs.student.main.CensusHelpers;
 
 import java.io.IOException;
 import java.net.URI;

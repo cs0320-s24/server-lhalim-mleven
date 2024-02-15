@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.StringReader;
 import java.util.List;
 
-import edu.brown.cs.student.main.Search.Search;
+import edu.brown.cs.student.main.SearchHelpers.Search;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 

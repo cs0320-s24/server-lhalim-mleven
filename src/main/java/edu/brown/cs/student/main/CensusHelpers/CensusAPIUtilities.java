@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.Census;
+package edu.brown.cs.student.main.CensusHelpers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.Search;
+package edu.brown.cs.student.main.SearchHelpers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -29,9 +29,14 @@ public class SearchHandler implements Route {
 
         // Get Query parameters, can be used to make your search more specific
         String target = request.queryParams("target");
-        String
+
+
+
+
         // Initialize a map for our informative response.
         Map<String, Object> responseMap = new HashMap<>();
+
+        responseMap.put("target", target);
 
 
 
