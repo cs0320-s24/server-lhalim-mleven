@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main;
+package edu.brown.cs.student.main.Census;
 
 /**
  * This is a class that models an Activity received from the BoredAPI. It doesn't have a lot but

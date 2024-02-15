@@ -1,7 +1,5 @@
-package edu.brown.cs.student.main;
+package edu.brown.cs.student.main.Census;
 
-import edu.brown.cs.student.main.Census;
-import edu.brown.cs.student.main.CensusAPIUtilities;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -75,4 +73,21 @@ public class CensusHandler implements Route {
 
         return sentCensusApiResponse.body();
     }
+
+    //I added this to the other classes, not sure if its applicable here put just put it just in case
+
+//    /** Response object to send if someone requested a search to empty data */
+//    public record CensusIncorrectFailureResponse(String response_type) {
+//        public CensusIncorrectFailureResponse() {
+//            this("error");
+//        }
+//
+//        /**
+//         * @return this response, serialized as Json
+//         */
+//        String serialize() {
+//            Moshi moshi = new Moshi.Builder().build();
+//            return moshi.adapter(CensusIncorrectFailureResponse.class).toJson(this);
+//        }
+//    }
 }

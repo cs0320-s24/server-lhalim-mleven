@@ -2,7 +2,7 @@ package edu.brown.cs.student.main.Caching;
 
 import edu.brown.cs.student.main.Creators.CreateStringList;
 import edu.brown.cs.student.main.FactoryFailureException;
-import edu.brown.cs.student.main.Search;
+import edu.brown.cs.student.main.Search.Search;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
