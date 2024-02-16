@@ -15,9 +15,6 @@ public final class Main {
 
   private void run() {
     // dear student: you can remove this. you can remove anything. you're in cs32. you're free!
-    System.out.println(
-        "Your horoscope for this project:\n"
-            + "Entrust in the Strategy pattern, and it shall give thee the sovereignty to "
-            + "decide and the dexterity to change direction in the realm of thy code.");
+    System.out.println("Server started");
   }
 }

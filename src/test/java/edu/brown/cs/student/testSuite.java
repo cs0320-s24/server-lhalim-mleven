@@ -3,6 +3,7 @@ package edu.brown.cs.student;
 import edu.brown.cs.student.main.*;
 import edu.brown.cs.student.main.Creators.CreateEarningsDisparity;
 import edu.brown.cs.student.main.Creators.CreateStringList;
+import edu.brown.cs.student.main.SearchHelpers.Search;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringReader;
