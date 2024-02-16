@@ -7,5 +7,7 @@ public interface Cache<K, V> {
     void clear();
     void setMaxSize(int maxSize);
     void setEvictionPolicy(EvictionPolicy<K, V> evictionPolicy);
+
+    boolean containsKey(K cacheKey);
 }
 
