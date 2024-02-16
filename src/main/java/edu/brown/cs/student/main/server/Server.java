@@ -1,12 +1,12 @@
 package edu.brown.cs.student.main.server;
 
-import static spark.Spark.after;
-
-import edu.brown.cs.student.main.CensusHelpers.CensusAPIUtilities;
 import edu.brown.cs.student.main.CensusHelpers.CensusHandler;
 import edu.brown.cs.student.main.SearchHelpers.SearchHandler;
-import java.util.List;
 import spark.Spark;
+
+import java.util.List;
+
+import static spark.Spark.after;
 
 /**
  * The server class contains the main() method which starts Spark and runs the handlers
@@ -23,10 +23,10 @@ public class Server {
     Spark.port(port);
 
     after(
-        (request, response) -> {
-          response.header("Access-Control-Allow-Origin", "*");
-          response.header("Access-Control-Allow-Methods", "*");
-        });
+            (request, response) -> {
+              response.header("Access-Control-Allow-Origin", "*");
+              response.header("Access-Control-Allow-Methods", "*");
+            });
 
 //    String dataAsJson = CensusAPIUtilities.deserializeCensus("");
 
