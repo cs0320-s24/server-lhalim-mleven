@@ -1,8 +1,7 @@
 package edu.brown.cs.student.main.CensusHelpers;
 
 /**
- * This is a class that models an Activity received from the BoredAPI. It doesn't have a lot but
- * there are a few fields that you could filter on if you wanted!
+ * This is a class that models a CSV received from the API.
  */
 public class Census {
   private String census;
