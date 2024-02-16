@@ -4,10 +4,47 @@
 
 # Project Details
 
+Project Name: Sprint 2 Server
+
+Team Members: Lina Halim and Malin Leven
+
+Estimated time to finish project: 14 hours
+
+Repo Link: https://github.com/cs0320-s24/server-lhalim-mleven
+
 # Design Choices
+
+Caching - Contains all classes needed for caching and search with cache (User Story 3)
+- Cache
+- cachedSearch
+- cachedServer
+- CachingMain
+- EvictionPolicy
+- VolatileTTLCache
+- VolatileTTLEvictionPolicy
+
+CensusHelpers - Contains all classes needed to loadcsv, viewcsv, and broadband (User Story 1)
+- Census
+- CensusAPIUtilities
+- CensusHandler
+
+SearchHelpers - Contains classes used in to search for a target
+- Search
+- SearchHandler
+
+server - Class with the main method that starts Spark
+- Server
+
+Classes from Sprint 1: CSV
+- EarningsDisparity
+- CreateEarningsDisparity
+- CreateStringList
+- CreatorFromRow
 
 # Errors/Bugs
 
 # Tests
+
+We have various tests to test the caching, the server, and the different functionalities we have.
 
 # How to
