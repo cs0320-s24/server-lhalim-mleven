@@ -48,3 +48,7 @@ Classes from Sprint 1: CSV
 We have various tests to test the caching, the server, and the different functionalities we have.
 
 # How to
+
+In Intellij terminal, input mvn package, then input ./run. The locak host will appear at port 8989: http://localhost:8989
+To get to the different endpoints, enter the desired endpoint.
+
