@@ -2,12 +2,10 @@ package edu.brown.cs.student.main.SearchHelpers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import edu.brown.cs.student.main.CensusHelpers.CensusHandler;
 import edu.brown.cs.student.main.Creators.CreateStringList;
-import java.io.FileReader;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.StringReader;
+import java.util.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -39,15 +37,20 @@ public class SearchHandler implements Route {
     parameterDict.put("index", index);
 
     if (target == "") {
-      return new SearchNoDataFailureResponse("No search term inputted.").serialize();
+      return new SearchNoDataFailureResponse("No search term was inputted.").serialize();
     }
 
-    try (FileReader reader = new FileReader("test.csv")) {
+    CensusHandler handler = new CensusHandler();
+    handler.handle(request, response);
+    String csvData = handler.viewCSV();
+
+    try (StringReader reader = new StringReader(csvData)) {
       Search searcher = new Search(reader, new CreateStringList(), headerBool);
 
-      Collection<List<String>> foundRow = null;
+      // Initialise where the search result will be stored
+      Collection<List<String>> foundRow;
 
-      // Perform searches
+      // Perform searches based off what information the user inputs
       if (column != null) {
         foundRow = searcher.search(target, column);
       } else if (index != null) {
@@ -55,20 +58,28 @@ public class SearchHandler implements Route {
       } else {
         foundRow = searcher.search(target);
       }
-      return new SearchSuccessResponse("error", parameterDict).serialize();
+      return new SearchSuccessResponse(
+              foundRow, parameterDict.toString(), "found in " + foundRow.size() + " rows")
+          .serialize();
     }
 
     //    return new SearchNoDataFailureResponse().serialize();
 
   }
 
-  public record SearchSuccessResponse(String response_type, Map<String, Object> responseMap) {
-    public SearchSuccessResponse(Map<String, Object> responseMap) {
-      this("success", responseMap);
-    }
+  public record SearchSuccessResponse(
+      String result, Collection<List<String>> rows, String params, String message) {
     /**
-     * @return this response, serialized as Json
+     * Constructor
+     *
+     * @param rows the rows where the target was found
+     * @param params parameters passed into the query
+     * @param message a message to tell users how many places the target was found in
      */
+    public SearchSuccessResponse(Collection<List<String>> rows, String params, String message) {
+      this("success", rows, params, message);
+    }
+
     String serialize() {
       try {
         // Initialize Moshi which takes in this class and returns it as JSON!
