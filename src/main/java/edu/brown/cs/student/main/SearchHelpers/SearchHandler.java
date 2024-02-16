@@ -2,17 +2,22 @@ package edu.brown.cs.student.main.SearchHelpers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+
+import java.io.FileReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import edu.brown.cs.student.main.Creators.CreateStringList;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 public class SearchHandler implements Route {
 
-  private List<List<String>> csvInfo;
+  // Initialize a map for our informative response.
+  Map<String, Object> parameterDict = new HashMap<>();
 
   /**
    * @param request
@@ -23,21 +28,50 @@ public class SearchHandler implements Route {
   @Override
   public Object handle(Request request, Response response) throws Exception {
 
-    Set<String> params = request.queryParams();
-    String data = request.queryParams("data");
-
     // Get Query parameters, can be used to make your search more specific
     String target = request.queryParams("target");
+    String column = request.queryParams("columnName");
+    boolean headerBool = Boolean.parseBoolean(request.queryParams("hasHeader"));
+    int index = Integer.parseInt(request.queryParams("index"));
 
-    // Initialize a map for our informative response.
-    Map<String, Object> responseMap = new HashMap<>();
+    //Populating dictionary with query parameters
+    parameterDict.put("target", target);
+    parameterDict.put("columnName", column);
+    parameterDict.put("headerBool", headerBool);
+    parameterDict.put("index", index);
 
-    responseMap.put("target", target);
+    if (target == "") {
+      return new SearchNoDataFailureResponse("No search term inputted.").serialize();
+    }
 
-    //        Search searcher = new Search()
+    try (FileReader reader = new FileReader("test.csv")) {
+      Search searcher = new Search(reader, new CreateStringList(), headerBool);
 
-    return null;
+      Collection<List<String>> foundRow = null;
+
+      //Perform searches
+      if(column != null) {
+        foundRow = searcher.search(target, column);
+      }
+      else if (index == 0) {
+        foundRow = searcher.search(target, index);
+      }
+      else {
+        foundRow = searcher.search(target);
+      }
+      return new SearchSuccessResponse("error", parameterDict).serialize();
+
+
+    }
+
+
+    return new SearchNoDataFailureResponse().serialize();
+
   }
+
+
+
+
 
   public record SearchSuccessResponse(String response_type, Map<String, Object> responseMap) {
     public SearchSuccessResponse(Map<String, Object> responseMap) {
