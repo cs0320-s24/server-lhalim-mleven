@@ -3,6 +3,7 @@ package edu.brown.cs.student.main.server;
 import static spark.Spark.after;
 
 import edu.brown.cs.student.main.CensusHelpers.CensusAPIUtilities;
+import edu.brown.cs.student.main.CensusHelpers.CensusHandler;
 import edu.brown.cs.student.main.SearchHelpers.SearchHandler;
 import java.util.List;
 import spark.Spark;
@@ -23,9 +24,9 @@ public class Server {
 //    String dataAsJson = CensusAPIUtilities.deserializeCensus("");
 
 
-    Spark.get("loadcsv", );
-    Spark.get("viewcsv", );
-    Spark.get("broadband", );
+    Spark.get("loadcsv", new CensusHandler());
+    Spark.get("viewcsv", new CensusHandler());
+    Spark.get("broadband", new CensusHandler());
     Spark.get("searchcsv", new SearchHandler());
 
     Spark.init();

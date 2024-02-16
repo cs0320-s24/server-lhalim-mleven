@@ -98,4 +98,8 @@ public class CensusHandler implements Route {
     }
     return csvData;
   }
+
+  public void broadBand(){
+
+  }
 }
