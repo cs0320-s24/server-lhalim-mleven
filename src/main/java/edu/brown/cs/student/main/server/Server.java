@@ -2,6 +2,7 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
+import edu.brown.cs.student.main.CensusHelpers.CensusAPIUtilities;
 import edu.brown.cs.student.main.SearchHelpers.SearchHandler;
 import java.util.List;
 import spark.Spark;
@@ -19,12 +20,14 @@ public class Server {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    SearchHandler search = new SearchHandler();
+//    String dataAsJson = CensusAPIUtilities.deserializeCensus("");
 
-    //    Spark.post("loadcsv", );
-    //    Spark.get("viewcsv", );
-    //    Spark.post("broadband", );
-    Spark.post("searchcsv", search);
+
+    loadedCSV =
+    Spark.post("loadcsv", );
+    Spark.get("viewcsv", );
+    Spark.post("broadband", );
+    Spark.post("searchcsv", new SearchHandler());
 
     Spark.init();
     Spark.awaitInitialization();

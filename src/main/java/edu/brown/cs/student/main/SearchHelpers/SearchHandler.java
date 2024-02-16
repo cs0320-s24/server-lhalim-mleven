@@ -40,8 +40,11 @@ public class SearchHandler implements Route {
       return new SearchNoDataFailureResponse("No search term was inputted.").serialize();
     }
 
+    //Loading in the csvData as a string using the Census Handler
     CensusHandler handler = new CensusHandler();
     handler.handle(request, response);
+
+    //Getting the data as a string
     String csvData = handler.viewCSV();
 
     try (StringReader reader = new StringReader(csvData)) {
@@ -49,7 +52,6 @@ public class SearchHandler implements Route {
 
       // Initialise where the search result will be stored
       Collection<List<String>> foundRow;
-
 
       // Perform searches based off what information the user inputs
       if (column != null) {
@@ -103,7 +105,7 @@ public class SearchHandler implements Route {
     }
   }
 
-  /** Response object to send if someone requested a search to empty data */
+  /** Response object to send if there is an error in the search */
   public record SearchNoDataFailureResponse(String response_type) {
     public SearchNoDataFailureResponse() {
       this("error");
