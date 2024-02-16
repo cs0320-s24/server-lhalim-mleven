@@ -4,11 +4,11 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
-/** This class deserializes JSON from the BoredAPI into an Activity. */
+/** This class deserializes JSON from the API. */
 public class CensusAPIUtilities {
 
   /**
-   * Deserializes JSON from the BoredAPI into an Activity object.
+   * Deserializes JSON from the API.
    *
    * @param jsonActivity
    * @return

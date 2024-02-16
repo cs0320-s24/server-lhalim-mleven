@@ -1,5 +1,9 @@
 package edu.brown.cs.student.main.CensusHelpers;
 
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,9 +13,6 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 /**
  * This class is used to illustrate how to build and send a GET request then prints the response. It
@@ -52,7 +53,11 @@ public class CensusHandler implements Route {
           // You may want to return the CSV data or some representation of it
           responseMap.put("result", "Viewing CSV data");
         }
-      } else {
+      } else if (action != null && action.equals("broadband")){
+        broadband(request, response);
+      }
+
+      else {
         response.status(400);
         responseMap.put("error", "Invalid action");
       }
@@ -72,7 +77,7 @@ public class CensusHandler implements Route {
     return false;
   }
 
-  private void loadCSV(String filepath)
+  public void loadCSV(String filepath)
       throws URISyntaxException, IOException, InterruptedException {
     // Make API request to load CSV file using the provided filepath
     // Update the URI accordingly to the endpoint that accepts the filepath
@@ -99,7 +104,18 @@ public class CensusHandler implements Route {
     return csvData;
   }
 
-  public void broadband(){
+  public void broadband(Request request, Response response) throws IOException{
+    String state = request.queryParams("state");
+    String county = request.queryParams("county");
+
+    if (state.isEmpty()){
+      throw new IOException("No state inputted");
+    }
+    if (county.isEmpty()){
+      throw new IOException("No county inputted");
+    }
+
 
   }
+
 }
