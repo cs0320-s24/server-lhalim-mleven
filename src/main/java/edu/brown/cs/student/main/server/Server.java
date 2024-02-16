@@ -23,11 +23,10 @@ public class Server {
 //    String dataAsJson = CensusAPIUtilities.deserializeCensus("");
 
 
-    loadedCSV =
-    Spark.post("loadcsv", );
+    Spark.get("loadcsv", );
     Spark.get("viewcsv", );
-    Spark.post("broadband", );
-    Spark.post("searchcsv", new SearchHandler());
+    Spark.get("broadband", );
+    Spark.get("searchcsv", new SearchHandler());
 
     Spark.init();
     Spark.awaitInitialization();
