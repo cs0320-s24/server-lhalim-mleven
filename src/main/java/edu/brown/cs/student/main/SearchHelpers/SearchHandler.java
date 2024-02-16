@@ -10,15 +10,18 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * The SearchHandler class implements Route and
+ */
 public class SearchHandler implements Route {
 
   // Initialize a map for our informative response.
   Map<String, Object> parameterDict = new HashMap<>();
 
   /**
-   * @param request
-   * @param response
-   * @return
+   * @param request The request object providing information about the HTTP request
+   * @param response The response object providing functionality for modifying the response
+   * @return return either a SearchSuccessResponse or a SearchNoDataFailureResponse
    * @throws Exception
    */
   @Override
@@ -36,15 +39,16 @@ public class SearchHandler implements Route {
     parameterDict.put("headerBool", headerBool);
     parameterDict.put("index", index);
 
+    // If the target is not input, return an error
     if (target == "") {
       return new SearchNoDataFailureResponse("No search term was inputted.").serialize();
     }
 
-    //Loading in the csvData as a string using the Census Handler
+    // Loading in the csvData as a string using the Census Handler
     CensusHandler handler = new CensusHandler();
     handler.handle(request, response);
 
-    //Getting the data as a string
+    // Getting the data as a string
     String csvData = handler.viewCSV();
 
     try (StringReader reader = new StringReader(csvData)) {
@@ -62,20 +66,23 @@ public class SearchHandler implements Route {
         foundRow = searcher.search(target);
       }
 
+      //If the target is not found, returns a message
       if(foundRow.isEmpty()){
         return new SearchSuccessResponse(
                 foundRow, parameterDict.toString(), "The target: " + target + "was not found.")
                 .serialize();
       }
-      //Returning the found rows
+
+      //Returning the rows that the target was found in
       return new SearchSuccessResponse(
               foundRow, parameterDict.toString(), "The target: " + target + " was found in " + foundRow.size() + " rows.")
           .serialize();
-    } catch (RuntimeException e) { //throwing error if search process fails.
+    } catch (RuntimeException e) { //throwing error if search process fails
       return new SearchNoDataFailureResponse("Error during search process. " + e.getMessage()).serialize();
     }
   }
 
+  /** Response object to send if the search is conducted successfully **/
   public record SearchSuccessResponse(
       String result, Collection<List<String>> rows, String params, String message) {
     /**
