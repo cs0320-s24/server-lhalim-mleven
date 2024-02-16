@@ -2,14 +2,12 @@ package edu.brown.cs.student.main.SearchHelpers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-
+import edu.brown.cs.student.main.Creators.CreateStringList;
 import java.io.FileReader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import edu.brown.cs.student.main.Creators.CreateStringList;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -32,9 +30,9 @@ public class SearchHandler implements Route {
     String target = request.queryParams("target");
     String column = request.queryParams("columnName");
     boolean headerBool = Boolean.parseBoolean(request.queryParams("hasHeader"));
-    int index = Integer.parseInt(request.queryParams("index"));
+    String index = request.queryParams("index");
 
-    //Populating dictionary with query parameters
+    // Populating dictionary with query parameters
     parameterDict.put("target", target);
     parameterDict.put("columnName", column);
     parameterDict.put("headerBool", headerBool);
@@ -49,29 +47,20 @@ public class SearchHandler implements Route {
 
       Collection<List<String>> foundRow = null;
 
-      //Perform searches
-      if(column != null) {
+      // Perform searches
+      if (column != null) {
         foundRow = searcher.search(target, column);
-      }
-      else if (index == 0) {
+      } else if (index != null) {
         foundRow = searcher.search(target, index);
-      }
-      else {
+      } else {
         foundRow = searcher.search(target);
       }
       return new SearchSuccessResponse("error", parameterDict).serialize();
-
-
     }
 
-
-    return new SearchNoDataFailureResponse().serialize();
+    //    return new SearchNoDataFailureResponse().serialize();
 
   }
-
-
-
-
 
   public record SearchSuccessResponse(String response_type, Map<String, Object> responseMap) {
     public SearchSuccessResponse(Map<String, Object> responseMap) {

@@ -2,9 +2,8 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import java.util.List;
-
 import edu.brown.cs.student.main.SearchHelpers.SearchHandler;
+import java.util.List;
 import spark.Spark;
 
 public class Server {
@@ -20,14 +19,12 @@ public class Server {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-
     SearchHandler search = new SearchHandler();
 
-//    Spark.post("loadcsv", );
-//    Spark.get("viewcsv", );
-//    Spark.post("broadband", );
+    //    Spark.post("loadcsv", );
+    //    Spark.get("viewcsv", );
+    //    Spark.post("broadband", );
     Spark.post("searchcsv", search);
-
 
     Spark.init();
     Spark.awaitInitialization();

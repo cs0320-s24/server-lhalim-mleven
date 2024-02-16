@@ -6,14 +6,14 @@ import spark.Route;
 
 public class BroadbandHandler implements Route {
 
-    /**
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public Object handle(Request request, Response response) throws Exception {
-        return null;
-    }
+  /**
+   * @param request
+   * @param response
+   * @return
+   * @throws Exception
+   */
+  @Override
+  public Object handle(Request request, Response response) throws Exception {
+    return null;
+  }
 }
