@@ -63,6 +63,11 @@ public class VolatileTTLCache<K, V> implements Cache<K, V> {
         this.evictionPolicy = evictionPolicy;
     }
 
+    @Override
+    public boolean containsKey(K cacheKey) {
+        return cache.containsKey(cacheKey);
+    }
+
     // Schedule eviction of a key after TTL milliseconds
     private void scheduleEviction(K key, long ttl) {
         timer.schedule(new TimerTask() {

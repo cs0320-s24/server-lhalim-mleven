@@ -7,17 +7,10 @@ Project Name: Server
 
 Team Members: Lina Halim and Malin Leven
 
-Estimated time to finish project: 14 hours
+Estimated time to finish project: 14 hours each
 
 Repo Link: https://github.com/cs0320-s24/server-lhalim-mleven
 
-Project Name: Sprint 2 Server
-
-Team Members: Lina Halim and Malin Leven
-
-Estimated time to finish project: 14 hours
-
-Repo Link: https://github.com/cs0320-s24/server-lhalim-mleven
 
 # Design Choices
 
@@ -29,6 +22,8 @@ Caching - Contains all classes needed for caching and search with cache (User St
 - EvictionPolicy
 - VolatileTTLCache
 - VolatileTTLEvictionPolicy
+
+note: the eviction policy can be modified by user 3 by implementing the eviction policy interface into their own class.
 
 CensusHelpers - Contains all classes needed to loadcsv, viewcsv, and broadband (User Story 1)
 - Census
@@ -57,6 +52,6 @@ We have various tests to test the caching, the server, and the different functio
 
 # How to
 
-In Intellij terminal, input mvn package, then input ./run. The locak host will appear at port 8989: http://localhost:8989
+In Intellij terminal, input mvn package, then input ./run. The local host will appear at port 8989: http://localhost:8989
 To get to the different endpoints, enter the desired endpoint.
 
