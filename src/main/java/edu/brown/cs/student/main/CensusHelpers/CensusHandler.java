@@ -19,75 +19,72 @@ import spark.Route;
  */
 // See Documentation here: https://www.boredapi.com/documentation
 public class CensusHandler implements Route {
-    /**
-     * This handle method needs to be filled by any class implementing Route. When the path set in
-     * edu.brown.cs.examples.moshiExample.server.Server gets accessed, it will fire the handle method.
-     *
-     * <p>NOTE: beware this "return Object" and "throws Exception" idiom. We need to follow it because
-     * the library uses it, but in general this lowers the protection of the type system.
-     *
-     * @param request The request object providing information about the HTTP request
-     * @param response The response object providing functionality for modifying the response
-     */
-    @Override
-    public Object handle(Request request, Response response) {
+  /**
+   * This handle method needs to be filled by any class implementing Route. When the path set in
+   * edu.brown.cs.examples.moshiExample.server.Server gets accessed, it will fire the handle method.
+   *
+   * <p>NOTE: beware this "return Object" and "throws Exception" idiom. We need to follow it because
+   * the library uses it, but in general this lowers the protection of the type system.
+   *
+   * @param request The request object providing information about the HTTP request
+   * @param response The response object providing functionality for modifying the response
+   */
+  @Override
+  public Object handle(Request request, Response response) {
 
-        Set<String> params = request.queryParams();
-        String data = request.queryParams("data"); // example of query parameter, still to be amended
+    Set<String> params = request.queryParams();
+    String data = request.queryParams("data"); // example of query parameter, still to be amended
 
-        // Creates a hashmap to store the results of the request
-        Map<String, Object> responseMap = new HashMap<>();
-        try {
-            // Sends a request to the API and receives JSON back
-            String censusJson = this.sendRequest(data);//add requests
-            // Deserializes JSON into an Activity
-            Census census = CensusAPIUtilities.deserializeCensus(censusJson);
+    // Creates a hashmap to store the results of the request
+    Map<String, Object> responseMap = new HashMap<>();
+    try {
+      // Sends a request to the API and receives JSON back
+      String censusJson = this.sendRequest(data); // add requests
+      // Deserializes JSON into an Activity
+      Census census = CensusAPIUtilities.deserializeCensus(censusJson);
 
-            return responseMap;
-        } catch (Exception e) { //needs better error handling
-            e.printStackTrace();
-            responseMap.put("result", "Exception");
-        }
-        return responseMap;
+      return responseMap;
+    } catch (Exception e) { // needs better error handling
+      e.printStackTrace();
+      responseMap.put("result", "Exception");
     }
+    return responseMap;
+  }
 
-    private String sendRequest(String data) // data needs to be altered to meet param request
-            throws URISyntaxException, IOException, InterruptedException {
+  private String sendRequest(String data) // data needs to be altered to meet param request
+      throws URISyntaxException, IOException, InterruptedException {
 
-        HttpRequest buildCensusApiRequest =
-                HttpRequest.newBuilder()
-                        .uri(new URI("https://api.census.gov/"))
-                        .GET()
-                        .build();
+    HttpRequest buildCensusApiRequest =
+        HttpRequest.newBuilder().uri(new URI("https://api.census.gov/")).GET().build();
 
-        // Send that API request then store the response in this variable. Note the generic type.
-        HttpResponse<String> sentCensusApiResponse =
-                HttpClient.newBuilder()
-                        .build()
-                        .send(buildCensusApiRequest, HttpResponse.BodyHandlers.ofString());
+    // Send that API request then store the response in this variable. Note the generic type.
+    HttpResponse<String> sentCensusApiResponse =
+        HttpClient.newBuilder()
+            .build()
+            .send(buildCensusApiRequest, HttpResponse.BodyHandlers.ofString());
 
-        // What's the difference between these two lines? Why do we return the body? What is useful from
-        // the raw response (hint: how can we use the status of response)?
-        System.out.println(sentCensusApiResponse);
-        System.out.println(sentCensusApiResponse.body());
+    // What's the difference between these two lines? Why do we return the body? What is useful from
+    // the raw response (hint: how can we use the status of response)?
+    System.out.println(sentCensusApiResponse);
+    System.out.println(sentCensusApiResponse.body());
 
-        return sentCensusApiResponse.body();
-    }
+    return sentCensusApiResponse.body();
+  }
 
-    //I added this to the other classes, not sure if its applicable here put just put it just in case
+  // I added this to the other classes, not sure if its applicable here put just put it just in case
 
-//    /** Response object to send if someone requested a search to empty data */
-//    public record CensusIncorrectFailureResponse(String response_type) {
-//        public CensusIncorrectFailureResponse() {
-//            this("error");
-//        }
-//
-//        /**
-//         * @return this response, serialized as Json
-//         */
-//        String serialize() {
-//            Moshi moshi = new Moshi.Builder().build();
-//            return moshi.adapter(CensusIncorrectFailureResponse.class).toJson(this);
-//        }
-//    }
+  //    /** Response object to send if someone requested a search to empty data */
+  //    public record CensusIncorrectFailureResponse(String response_type) {
+  //        public CensusIncorrectFailureResponse() {
+  //            this("error");
+  //        }
+  //
+  //        /**
+  //         * @return this response, serialized as Json
+  //         */
+  //        String serialize() {
+  //            Moshi moshi = new Moshi.Builder().build();
+  //            return moshi.adapter(CensusIncorrectFailureResponse.class).toJson(this);
+  //        }
+  //    }
 }

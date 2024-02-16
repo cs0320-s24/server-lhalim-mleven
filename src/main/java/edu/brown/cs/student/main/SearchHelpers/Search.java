@@ -4,7 +4,6 @@ import edu.brown.cs.student.main.Caching.Searching;
 import edu.brown.cs.student.main.Creators.CreatorFromRow;
 import edu.brown.cs.student.main.FactoryFailureException;
 import edu.brown.cs.student.main.Parser;
-
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;

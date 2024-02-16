@@ -5,13 +5,12 @@ package edu.brown.cs.student.main.CensusHelpers;
  * there are a few fields that you could filter on if you wanted!
  */
 public class Census {
-    private String census;
+  private String census;
 
+  public Census() {}
 
-    public Census() {}
-
-    @Override
-    public String toString() {
-        return this.census;
-    }
+  @Override
+  public String toString() {
+    return this.census;
+  }
 }
