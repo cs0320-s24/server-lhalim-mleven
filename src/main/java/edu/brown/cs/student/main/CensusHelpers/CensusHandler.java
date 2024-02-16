@@ -52,7 +52,11 @@ public class CensusHandler implements Route {
           // You may want to return the CSV data or some representation of it
           responseMap.put("result", "Viewing CSV data");
         }
-      } else {
+      } else if (action != null && action.equals("broadband")){
+        broadband(request, response);
+      }
+
+      else {
         response.status(400);
         responseMap.put("error", "Invalid action");
       }
@@ -99,7 +103,17 @@ public class CensusHandler implements Route {
     return csvData;
   }
 
-  public void broadband(){
+  public void broadband(Request request, Response response) throws IOException{
+    String state = request.queryParams("state");
+    String county = request.queryParams("county");
+
+    if (state.isEmpty()){
+      throw new IOException("No state inputted");
+    }
+    if (county.isEmpty()){
+      throw new IOException("No county inputted");
+    }
+
 
   }
 }
