@@ -50,6 +50,7 @@ public class SearchHandler implements Route {
       // Initialise where the search result will be stored
       Collection<List<String>> foundRow;
 
+
       // Perform searches based off what information the user inputs
       if (column != null) {
         foundRow = searcher.search(target, column);
@@ -58,13 +59,19 @@ public class SearchHandler implements Route {
       } else {
         foundRow = searcher.search(target);
       }
+
+      if(foundRow.isEmpty()){
+        return new SearchSuccessResponse(
+                foundRow, parameterDict.toString(), "The target: " + target + "was not found.")
+                .serialize();
+      }
+      //Returning the found rows
       return new SearchSuccessResponse(
-              foundRow, parameterDict.toString(), "found in " + foundRow.size() + " rows")
+              foundRow, parameterDict.toString(), "The target: " + target + " was found in " + foundRow.size() + " rows.")
           .serialize();
+    } catch (RuntimeException e) { //throwing error if search process fails.
+      return new SearchNoDataFailureResponse("Error during search process. " + e.getMessage()).serialize();
     }
-
-    //    return new SearchNoDataFailureResponse().serialize();
-
   }
 
   public record SearchSuccessResponse(
